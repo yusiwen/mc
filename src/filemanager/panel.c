@@ -3714,7 +3714,8 @@ reload_panelized (WPanel * panel)
     int i, j;
     dir_list *list = &panel->dir;
 
-    if (panel != current_panel)
+    /* refresh current working directory required for vfs_path_from_str() */
+    if (!vfs_path_equal (panel->cwd_vpath, vfs_get_raw_current_dir()))
         (void) mc_chdir (panel->cwd_vpath);
 
     for (i = 0, j = 0; i < panel->count; i++)
@@ -3749,6 +3750,7 @@ reload_panelized (WPanel * panel)
     else
         panel->count = j;
 
+    /* back to other panel, if required */
     if (panel != current_panel)
         (void) mc_chdir (current_panel->cwd_vpath);
 }
