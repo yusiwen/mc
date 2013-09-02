@@ -221,6 +221,7 @@ static void
 init_subshell_child (const char *pty_name)
 {
     char *init_file = NULL;
+    char *putenv_str = NULL;
     pid_t mc_sid;
 
     (void) pty_name;
@@ -269,8 +270,10 @@ init_subshell_child (const char *pty_name)
     switch (subshell_type)
     {
     case BASH:
+        /* Do we have a custom init file ~/.local/share/mc/bashrc? */
         init_file = mc_config_get_full_path ("bashrc");
 
+        /* Otherwise use ~/.bashrc */
         if (access (init_file, R_OK) == -1)
         {
             g_free (init_file);
@@ -285,9 +288,8 @@ init_subshell_child (const char *pty_name)
             char *input_file = mc_config_get_full_path ("inputrc");
             if (access (input_file, R_OK) == 0)
             {
-                char *putenv_str = g_strconcat ("INPUTRC=", input_file, NULL);
+                putenv_str = g_strconcat ("INPUTRC=", input_file, NULL);
                 putenv (putenv_str);
-                g_free (putenv_str);
             }
             g_free (input_file);
         }
@@ -350,6 +352,7 @@ init_subshell_child (const char *pty_name)
 
     /* If we get this far, everything failed miserably */
     g_free (init_file);
+    g_free (putenv_str);
     my_exit (FORK_FAILURE);
 }
 
