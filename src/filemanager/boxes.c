@@ -93,7 +93,7 @@
 
 /*** file scope variables ************************************************************************/
 
-unsigned long configure_old_esc_mode_id, configure_time_out_id;
+static unsigned long configure_old_esc_mode_id, configure_time_out_id;
 
 /* Index in list_types[] for "user defined" */
 static const int panel_listing_user_idx = 3;
@@ -111,8 +111,8 @@ static int new_display_codepage;
 static unsigned long ftpfs_always_use_proxy_id, ftpfs_proxy_host_id;
 #endif /* ENABLE_VFS && ENABLE_VFS_FTP */
 
-GPtrArray *skin_names;
-gchar *current_skin_name;
+static GPtrArray *skin_names;
+static gchar *current_skin_name;
 
 #ifdef ENABLE_BACKGROUND
 static WListbox *bg_list = NULL;
