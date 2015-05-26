@@ -46,3 +46,12 @@ make.log
 make.clang
 make.gcc
 make.tcc
+misc/ext.d/*.sh
+misc/mc.menu
+misc/mc.menu.sr
+misc/mcedit.menu
+misc/syntax/Syntax
+src/man2hlp/man2hlp
+src/vfs/extfs/helpers/uc1541
+src/vfs/extfs/helpers/ulib
+tests/src/editor/test-data.txt
